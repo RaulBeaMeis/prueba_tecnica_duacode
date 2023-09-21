@@ -4,7 +4,8 @@
         public function __construct(){
             require_once "Modelo/EquiposModel.php";
         }
-    
+        
+        //Gestiona el listado de equipos
         public function listarEquipos() {
     
             require_once "Modelo/EquiposModel.php";
@@ -13,13 +14,14 @@
             require_once("Vista/ListadoEquipos.php");
     
         }
-
+        //Gestiona la entrada al formulario de creación de equipos
         public function nuevoEquipo() {
 
             require_once("Vista/FormularioCrearEquipos.php");
 
         }
 
+        //Gestiona el guardado en la base de datos de un nuevo equipo en función a lo enviado en el formulario
         public function guardarEquipo(){
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,13 +35,10 @@
                 $equipoGuardado->guardarEquipo($nombre_equipo, $pais_equipo, $ciudad_equipo, $deporte, $fecha_fundacion);
 
                 if ($equipoGuardado !== false) {
-                    // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                    
                     header('Location: index.php');
                     exit;
                 } else {
-                    // Manejar el caso en que no se pudo guardar el equipo (por ejemplo, mostrar un mensaje de error)
-                    echo "<script>console.log('Hubo un error al guardar el equipo.');</script>";
+                    echo "Hubo un error al guardar el equipo.";
                 }
             }
       

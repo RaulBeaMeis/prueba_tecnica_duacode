@@ -1,5 +1,5 @@
 <?php
-
+//Se hace todo el routing para controlar las llamadas a los controladores y sus funciones
     function cargarControlador($controlador){
 
         $nombreControlador = ucwords($controlador)."Controller";

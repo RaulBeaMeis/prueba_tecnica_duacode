@@ -3,7 +3,7 @@
     class Conexion{
         
         public static function conexion(){
-
+            //Se establece la conexión con la base de datos
             try{
                 $conexion = new PDO ('mysql:host=localhost; dbname=prueba_duacode', 'root', '');
 

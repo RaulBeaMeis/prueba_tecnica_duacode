@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Documento sín titulo</title>
 <style>
+
+    h1{text-align:center;
+    }
+
     table{
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -30,9 +34,10 @@
 
 </head>
 <body>
+    <h1>EQUIPOS</h1>
     <div class ="contenedor">
 
-    <a id="crear" href="index.php?c=equipos&a=nuevoEquipo"><button>Agregar Nuevo Equipo</button></a>
+    <a id="crear" href="index.php?c=equipos&a=nuevoEquipo"><button>Agregar nuevo equipo</button></a>
 
     <table>
 

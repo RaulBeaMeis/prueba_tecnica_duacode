@@ -16,7 +16,7 @@
 
 
         }
-
+        //funcion que obtiene a todos los jugadores de la base de datos
         public function getJugadores($id_equipo) {
 
             $consulta=$this->db->query("SELECT * FROM jugadores where id_equipo = $id_equipo");
@@ -30,22 +30,21 @@
             return $this->jugadores;
         }
 
+        //Función que agrega en la base de datos un jugador completamente nuevo
         public function guardarNuevoJugador($nombre_jugador, $num_jugador, $fech_nac, $capitan, $id_equipo){
             try{
-                //$consulta = $this->db->query("INSERT INTO equipo (nombre_equipo, pais_equipo, ciudad_equipo, deporte, fecha_creacion) VALUES ('$nombre_equipo', '$pais_equipo', '$ciudad_equipo', '$deporte', '$fecha_fundacion')");
                 $consulta = "INSERT INTO jugadores (nombre_jugador, num_jugador, fech_nac, capitan, id_equipo) VALUES (?, ?, ?, ?, ?)";
                 $prueba = $this->db->prepare($consulta);
                 $prueba->execute([$nombre_jugador, $num_jugador, $fech_nac, $capitan, $id_equipo]);
 
-                echo "Funciona";
             }catch (PDOException $e) {
                 echo "error " . $e->getMessage();
             }
         }
 
+        //Función que elimina a un jugador de la base de datos
         public function eliminarJugadores($id_jugador){
             try{
-                //$consulta = $this->db->query("INSERT INTO equipo (nombre_equipo, pais_equipo, ciudad_equipo, deporte, fecha_creacion) VALUES ('$nombre_equipo', '$pais_equipo', '$ciudad_equipo', '$deporte', '$fecha_fundacion')");
                 $consulta = "DELETE FROM jugadores WHERE id_jugador = $id_jugador";
                 $prueba = $this->db->prepare($consulta);
                 $prueba->execute();
@@ -56,6 +55,7 @@
             }
         }
 
+        //Función que obtiene a un jugador concreto pasando su id para despues poder editarlo
         public function getJugadoresToEdit($id_jugador){
             $consulta=$this->db->query("SELECT * FROM jugadores where id_jugador = $id_jugador");
     
@@ -69,10 +69,9 @@
 
         }
 
+        //Función para guardar las modificaciones hechas sobre un jugador una vez pulsado el botón de confirmar la actualización.
         public function guardarJugadorModificado($id_jugador, $nombre_jugador, $num_jugador, $fech_nac, $capitan){
             try{
-                
-                //$consulta = $this->db->query("INSERT INTO equipo (nombre_equipo, pais_equipo, ciudad_equipo, deporte, fecha_creacion) VALUES ('$nombre_equipo', '$pais_equipo', '$ciudad_equipo', '$deporte', '$fecha_fundacion')");
                 $consulta = "UPDATE jugadores SET nombre_jugador = ?, num_jugador = ?, fech_nac = ?, capitan = ? WHERE id_jugador = ?";
                 $prueba = $this->db->prepare($consulta);
                 $prueba->execute([$nombre_jugador, $num_jugador, $fech_nac, $capitan, $id_jugador]);
@@ -83,6 +82,7 @@
             }
         }
 
+        //Función que sobreescribe al anterior capitan del equipo cuando eliges uno nuevo
         public function sobreescribirCapitanEquipo($id_equipo){
             $consulta=$this->db->query("SELECT id_jugador FROM jugadores where id_equipo = $id_equipo && capitan = 1");
             
