@@ -3,19 +3,19 @@
 
         public function __construct(){
             require_once "Modelo/JugadoresModel.php";
-            require_once "Modelo/Equipos_modelo.php";
+            require_once "Modelo/EquiposModel.php";
         }
 
         public function listarJugadores($id_equipo) {
             require_once "Modelo/JugadoresModel.php";
             $jugador = new JugadoresModel();
             $matrizJugadores['jugadores'] = $jugador->getJugadores($id_equipo);
-            require_once("Vista/listado_jugadores.php");
+            require_once("Vista/ListadoJugadores.php");
         }
 
         public function nuevoJugador() {
 
-            require_once("Vista/formulario_crear_jugadores.php");
+            require_once("Vista/FormularioCrearJugadores.php");
     
         }
 
@@ -23,7 +23,7 @@
             require_once "Modelo/JugadoresModel.php";
             $jugador = new JugadoresModel();
             $jugadorEditado['jugadores'] = $jugador->getJugadoresToEdit($id_jugador);
-            require_once("Vista/formularioEditarJugadores.php");
+            require_once("Vista/FormularioEditarJugadores.php");
         }
 
         public function guardarNuevoJugador($id_equipo){
@@ -43,7 +43,7 @@
                 $jugadorGuardado->guardarNuevoJugador($nombre_jugador, $num_jugador, $fech_nac, $capitan, $id_equipo);
                 if ($jugadorGuardado !== false) { 
 
-                    $actualizarCapitanEquipo = new Equipos_modelo();
+                    $actualizarCapitanEquipo = new EquiposModel();
                     $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
                     header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                     exit;
@@ -59,6 +59,8 @@
             $jugadorEliminado->eliminarJugadores($id_jugador);
             if ($jugadorEliminado !== false) {
                 // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
+                $actualizarCapitanEquipo = new EquiposModel();
+                $actualizarCapitanEquipo->actualizarCapitanEquipoEliminado($id_equipo);
                 header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                 exit;
             } else {
@@ -84,7 +86,7 @@
                 $jugadorModificado->guardarJugadorModificado($id_jugador, $nombre_jugador, $num_jugador, $fech_nac, $capitan);
                 if ($jugadorModificado !== false) {
                     // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                    $actualizarCapitanEquipo = new Equipos_modelo();
+                    $actualizarCapitanEquipo = new EquiposModel();
                     $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
                     header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                     exit;

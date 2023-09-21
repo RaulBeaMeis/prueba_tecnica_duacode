@@ -2,21 +2,21 @@
     class EquiposController{
 
         public function __construct(){
-            require_once "Modelo/Equipos_modelo.php";
+            require_once "Modelo/EquiposModel.php";
         }
     
         public function listarEquipos() {
     
-            require_once "Modelo/Equipos_modelo.php";
-            $equipo = new Equipos_modelo();
+            require_once "Modelo/EquiposModel.php";
+            $equipo = new EquiposModel();
             $matrizEquipos['equipos'] = $equipo->getEquipos();
-            require_once("Vista/Equipos_view.php");
+            require_once("Vista/ListadoEquipos.php");
     
         }
 
         public function nuevoEquipo() {
 
-            require_once("Vista/Crear_equipos_form.php");
+            require_once("Vista/FormularioCrearEquipos.php");
 
         }
 
@@ -29,7 +29,7 @@
                 $deporte = $_POST["deporte"];
                 $fecha_fundacion = $_POST["fecha_fundacion"];
 
-                $equipoGuardado = new Equipos_modelo();
+                $equipoGuardado = new EquiposModel();
                 $equipoGuardado->guardarEquipo($nombre_equipo, $pais_equipo, $ciudad_equipo, $deporte, $fecha_fundacion);
 
                 if ($equipoGuardado !== false) {
@@ -47,19 +47,5 @@
 
         }
     }
-    
-
-
-   
-    
-    
-
-    /*$matrizEquipos=$equipo->getEquipos();
-
-    //$equipo->crearEquipos($nombre_equipo, $pais_equipo, $ciudad_equipo, $deporte, $fecha_fundacion);
-
-    require_once("Vista/Equipos_view.php");*/
-
-    
 
 ?>

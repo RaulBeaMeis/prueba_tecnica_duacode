@@ -4,13 +4,18 @@
 <meta charset="utf-8">
 <title>Documento sín titulo</title>
 <style>
+
+    .contenedor{
+        text-align: center;
+    }
+
     table{
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 100%;
     }
 
     th, td {
@@ -29,16 +34,19 @@ $id = $_GET['id_equipo'];
 ?>
 
 </head>
-<a href="index.php?c=jugadores&a=nuevoJugador&id_equipo=<?php echo $id ?>">Agregar nuevo jugador</a>
-<a href="index.php">Vovler al inicio</a>
+
 <body>
+
+    <div class="contenedor">
+
+    <a href="index.php?c=jugadores&a=nuevoJugador&id_equipo=<?php echo $id ?>"><button>Agregar nuevo jugador</button></a>
 
     
     <table>
         <tr >
             <td class="primera_fila">Nombre del jugador</td>
             <td class="primera_fila">Nombre del jugador</td>
-            <td class="primera_fila">Número del jugador</td>
+            <td class="primera_fila">Número de camiseta</td>
             <td class="primera_fila">Fecha de nacimiento</td>
             <td class="primera_fila">Capitan</td>
             <td class="primera_fila">Actualizar</td>
@@ -69,6 +77,7 @@ $id = $_GET['id_equipo'];
         ?>
 
     </table>
-   
+    <a href="index.php"><button>Volver al inicio</button></a>
+    </div>
 </body>
 </html>

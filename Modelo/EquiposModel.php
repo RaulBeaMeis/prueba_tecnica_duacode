@@ -1,6 +1,6 @@
 <?php
 
-    class Equipos_modelo{
+    class EquiposModel{
 
         private $db;
 
@@ -51,6 +51,16 @@
                 $sqlActualizacion = "UPDATE equipos SET nom_capitan = ? WHERE id_equipo = ?";
                 $actualizacion = $this->db->prepare($sqlActualizacion);
                 $actualizacion->execute([$nom_jugador, $id_equipo]);
+            }catch (PDOException $e) {
+                echo "error " . $e->getMessage();
+            }
+        }
+
+        public function actualizarCapitanEquipoEliminado($id_equipo){
+            try{
+                $sqlActualizacion = "UPDATE equipos SET nom_capitan = '' WHERE id_equipo = ?";
+                $actualizacion = $this->db->prepare($sqlActualizacion);
+                $actualizacion->execute([$id_equipo]);
             }catch (PDOException $e) {
                 echo "error " . $e->getMessage();
             }
