@@ -83,6 +83,32 @@
             }
         }
 
+        public function sobreescribirCapitanEquipo($id_equipo){
+            $consulta=$this->db->query("SELECT id_jugador FROM jugadores where id_equipo = $id_equipo && capitan = 1");
+            
+            if ($consulta){
+                $filas=$consulta->fetch(PDO::FETCH_ASSOC);
+
+                if($filas){
+                    $valor = $filas['id_jugador'];
+                    echo $valor;
+                    try{
+                        $sqlActualizacion = "UPDATE jugadores SET capitan = ? WHERE id_jugador = ?";
+                        $actualizacion = $this->db->prepare($sqlActualizacion);
+                        $actualizacion->execute([0, $valor]);
+                    }catch (PDOException $e) {
+                        echo "error " . $e->getMessage();
+                    }
+                    
+                } else {
+                    echo "No se encontraron resultados en la consulta";
+                }
+            } else {
+                echo "Error en la consulta";
+            }
+        
+        }
+
     }
 
      

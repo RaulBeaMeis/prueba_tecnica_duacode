@@ -8,9 +8,9 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 100%;
     }
 
     th, td {
@@ -21,14 +21,21 @@
     .primera_fila {
         background-color: #B5B2B2;
     }
+
+    .contenedor{
+        text-align: center;
+    }
 </style>
 
 
 </head>
-<a href="index.php?c=equipos&a=nuevoEquipo">Agregar Nuevo Equipo</a>
 <body>
-    
+    <div class ="contenedor">
+
+    <a id="crear" href="index.php?c=equipos&a=nuevoEquipo"><button>Agregar Nuevo Equipo</button></a>
+
     <table>
+
         <tr >
             <td class="primera_fila">Id del equipo</td>
             <td class="primera_fila">Nombre del equipo</td>
@@ -36,6 +43,8 @@
             <td class="primera_fila">Ciudad del equipo</td>
             <td class="primera_fila">Deporte</td>
             <td class="primera_fila">Fecha de fundación</td>
+            <td class="primera_fila">Capitan</td>
+            <td class="primera_fila">Información equipo</td>
         </tr>
 
         <?php
@@ -51,6 +60,7 @@
             <td><?php echo $equipo["ciudad_equipo"]?></td>
             <td><?php echo $equipo["deporte"]?></td>
             <td><?php echo $equipo["fecha_creacion"]?></td>
+            <td><?php if (!$equipo["nom_capitan"] || ""){ echo "Nadie"; }else{ echo $equipo["nom_capitan"];} ?></td>
             <td><a href = 'index.php?c=jugadores&a=listarJugadores&id_equipo=<?php echo $equipo["id_equipo"]?>'>Info equipo</a></td>
         </tr>
 
@@ -61,6 +71,10 @@ endforeach
 ?>
 
     </table>
+
+  
+
+    </div>
    
 </body>
 </html>

@@ -48,9 +48,6 @@ $id = $_GET['id_equipo'];
 
         <?php
             foreach($matrizJugadores["jugadores"] as $jugador):
-               
-                
-
         ?>
 
         <tr>

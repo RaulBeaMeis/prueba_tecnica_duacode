@@ -56,8 +56,6 @@ $id = $_GET['id_equipo'];
         <input type="checkbox" id="capitan" name="capitan" value="1">
         <br><br>
 
-        <input type ="hidden" id="id_equipo" name="id_equipo" value=<?php echo $id ?>>
-
     
         <input type="submit" value="Guardar Jugador">
     </form>

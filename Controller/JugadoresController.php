@@ -3,6 +3,7 @@
 
         public function __construct(){
             require_once "Modelo/JugadoresModel.php";
+            require_once "Modelo/Equipos_modelo.php";
         }
 
         public function listarJugadores($id_equipo) {
@@ -31,13 +32,19 @@
                 $num_jugador = $_POST["num_jugador"];
                 $fech_nac= $_POST["fech_nac"];
                 $capitan = $_POST["capitan"];
-                $id_equipo = $_POST["id_equipo"];
+
+                if ($capitan == 1){
+                    $jugadorGuardado = new JugadoresModel();
+                    $jugadorGuardado->sobreescribirCapitanEquipo($id_equipo);
+                    
+                }
         
                 $jugadorGuardado = new JugadoresModel();
                 $jugadorGuardado->guardarNuevoJugador($nombre_jugador, $num_jugador, $fech_nac, $capitan, $id_equipo);
-                if ($jugadorGuardado !== false) {
-                    // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                    
+                if ($jugadorGuardado !== false) { 
+
+                    $actualizarCapitanEquipo = new Equipos_modelo();
+                    $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
                     header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                     exit;
                 } else {
@@ -48,12 +55,10 @@
         }
 
         public function eliminarJugadores($id_jugador, $id_equipo){
-            echo "Hola";
             $jugadorEliminado = new JugadoresModel();
             $jugadorEliminado->eliminarJugadores($id_jugador);
             if ($jugadorEliminado !== false) {
                 // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                echo "Hola";
                 header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                 exit;
             } else {
@@ -69,12 +74,18 @@
                 $fech_nac= $_POST["fech_nac"];
                 $capitan = $_POST["capitan"];
                 $id_equipo = $_POST["id_equipo"];
+
+                if ($capitan == 1){
+                    $jugadorGuardado = new JugadoresModel();
+                    $jugadorGuardado->sobreescribirCapitanEquipo($id_equipo);   
+                }
         
                 $jugadorModificado = new JugadoresModel();
                 $jugadorModificado->guardarJugadorModificado($id_jugador, $nombre_jugador, $num_jugador, $fech_nac, $capitan);
                 if ($jugadorModificado !== false) {
                     // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                    
+                    $actualizarCapitanEquipo = new Equipos_modelo();
+                    $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
                     header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                     exit;
                 } else {
