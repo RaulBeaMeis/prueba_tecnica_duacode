@@ -14,14 +14,7 @@
     
         }
 
-        public function listarJugadores($id_equipo) {
-            require_once "Modelo/Equipos_modelo.php";
-            $equipo = new Equipos_modelo();
-            $matrizJugadores['jugadores'] = $equipo->getJugadores($id_equipo);
-            require_once("Vista/listado_jugadores.php");
-        }
-
-        public function nuevo() {
+        public function nuevoEquipo() {
 
             require_once("Vista/Crear_equipos_form.php");
 

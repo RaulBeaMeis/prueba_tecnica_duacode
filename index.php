@@ -26,7 +26,20 @@ h1{text-align:center;
             $controlador = cargarControlador($_GET['c']);
 
             if(isset($_GET['a'])){
-                cargarAccion($controlador, $_GET['a']);
+                if(isset($_GET['id_jugador'])){
+                    if(isset($_GET['id_equipo'])){
+                        cargarAccion($controlador, $_GET['a'], $_GET['id_jugador'], $_GET['id_equipo']);
+                    } else {
+                        cargarAccion($controlador, $_GET['a'], $_GET['id_jugador']);
+                    }
+                } elseif(isset($_GET['id_equipo'])) {
+                    cargarAccion($controlador, $_GET['a'], $_GET['id_equipo']);
+                } else {
+                    cargarAccion($controlador, $_GET['a']);
+                }
+
+                
+                
             }else {
                 cargarAccion($controlador, ACCION_PRINCIPAL);
             }

@@ -25,7 +25,7 @@
 
 
 </head>
-<a href="index.php?c=equipos&a=nuevo">Agregar Nuevo Equipo</a>
+<a href="index.php?c=equipos&a=nuevoEquipo">Agregar Nuevo Equipo</a>
 <body>
     
     <table>
@@ -51,7 +51,7 @@
             <td><?php echo $equipo["ciudad_equipo"]?></td>
             <td><?php echo $equipo["deporte"]?></td>
             <td><?php echo $equipo["fecha_creacion"]?></td>
-            <td><a href = 'index.php?c=equipos&a=listarJugadores&id="$equipo["id_equipo"]."'>Info equipo</a></td>
+            <td><a href = 'index.php?c=jugadores&a=listarJugadores&id_equipo=<?php echo $equipo["id_equipo"]?>'>Info equipo</a></td>
         </tr>
 
         <?php

@@ -22,42 +22,54 @@
         background-color: #B5B2B2;
     }
 </style>
+<?php 
 
+$id = $_GET['id_equipo'];
+
+?>
 
 </head>
-<a href="index.php?c=equipos&a=nuevo">Agregar Nuevo Equipo</a>
+<a href="index.php?c=jugadores&a=nuevoJugador&id_equipo=<?php echo $id ?>">Agregar nuevo jugador</a>
+<a href="index.php">Vovler al inicio</a>
 <body>
+
     
     <table>
         <tr >
-            <td class="primera_fila">Id del equipo</td>
-            <td class="primera_fila">Nombre del equipo</td>
-            <td class="primera_fila">Pais del equipo</td>
-            <td class="primera_fila">Ciudad del equipo</td>
-            <td class="primera_fila">Deporte</td>
-            <td class="primera_fila">Fecha de fundación</td>
+            <td class="primera_fila">Nombre del jugador</td>
+            <td class="primera_fila">Nombre del jugador</td>
+            <td class="primera_fila">Número del jugador</td>
+            <td class="primera_fila">Fecha de nacimiento</td>
+            <td class="primera_fila">Capitan</td>
+            <td class="primera_fila">Actualizar</td>
+            <td class="primera_fila">Eliminar</td>
+           
         </tr>
 
         <?php
             foreach($matrizJugadores["jugadores"] as $jugador):
+               
                 
 
         ?>
 
         <tr>
-            <td><?php echo $jugador["id_equipo"]?></td>
-            <td><?php echo $jugador["nombre_equipo"]?></td>
-            <td><?php echo $jugador["pais_equipo"]?></td>
-            <td><?php echo $jugador["ciudad_equipo"]?></td>
-            <td><?php echo $jugador["deporte"]?></td>
-            <td><?php echo $jugador["fecha_creacion"]?></td>
+            <td><?php echo $jugador["id_jugador"]?></td>
+            <td><?php echo $jugador["nombre_jugador"]?></td>
+            <td><?php echo $jugador["num_jugador"]?></td>
+            <td><?php echo $jugador["fech_nac"]?></td>
+            <td><?php if($jugador["capitan"] == 0){
+               echo "No"; }else{ echo "Si";}?></td>
+            <td><a href = 'index.php?c=jugadores&a=modificarJugadorForm&id_jugador=<?php echo $jugador["id_jugador"]?>'>Actualizar</a></td>
+            <td><a href = 'index.php?c=jugadores&a=eliminarJugadores&id_jugador=<?php echo $jugador["id_jugador"]?>&id_equipo=<?php echo $id ?>'>Eliminar</a></td>
+            
         </tr>
 
         <?php
 
-endforeach
+         endforeach
 
-?>
+        ?>
 
     </table>
    
