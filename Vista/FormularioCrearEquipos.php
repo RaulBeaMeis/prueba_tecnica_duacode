@@ -50,16 +50,16 @@
                     return;
                 }
                 
-                // Validar que el numero de la camiseta no esté vacio
+                // Validar que el pais no esté vacio
                 var pais = $("#pais_equipo").val();
-                if (numero === "") {
+                if (pais === "") {
                     alert("Por favor, ingresa un pais.");
                     return;
                 }
 
-                // Validar que la fecha no esté vacia
+                // Validar que la ciudad no esté vacia
                 var ciudad = $("#ciudad_equipo").val();
-                if (fecha === "") {
+                if (ciudad === "") {
                     alert("Por favor, ingresa una ciudad");
                     return;
                 }
@@ -73,7 +73,7 @@
                 
                 // Si todos los campos están validados, se envia el formulario
                 alert("Formulario enviado correctamente.");
-                $("#formJugadores")[0].submit();
+                $("#formEquipos")[0].submit();
             });
         });
     </script>

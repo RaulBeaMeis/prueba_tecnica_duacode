@@ -6,6 +6,7 @@
             require_once "Modelo/EquiposModel.php";
         }
 
+        //Gestiona el listado de jugadores
         public function listarJugadores($id_equipo) {
             require_once "Modelo/JugadoresModel.php";
             $jugador = new JugadoresModel();
@@ -13,12 +14,14 @@
             require_once("Vista/ListadoJugadores.php");
         }
 
+        //Gestiona el acceso al formulario de creación de jugadores
         public function nuevoJugador() {
 
             require_once("Vista/FormularioCrearJugadores.php");
     
         }
 
+        //Gestiona el formulario de modificación de jugadores
         public function modificarJugadorForm($id_jugador){
             require_once "Modelo/JugadoresModel.php";
             $jugador = new JugadoresModel();
@@ -26,6 +29,7 @@
             require_once("Vista/FormularioEditarJugadores.php");
         }
 
+        //Gestiona el guardado en la base de datos de un nuevo jugador en función a lo enviado en el formulario
         public function guardarNuevoJugador($id_equipo){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nombre_jugador = $_POST["nombre_jugador"];
@@ -42,33 +46,35 @@
                 $jugadorGuardado = new JugadoresModel();
                 $jugadorGuardado->guardarNuevoJugador($nombre_jugador, $num_jugador, $fech_nac, $capitan, $id_equipo);
                 if ($jugadorGuardado !== false) { 
-
-                    $actualizarCapitanEquipo = new EquiposModel();
-                    $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
+                    if($capitan ==1){
+                        $actualizarCapitanEquipo = new EquiposModel();
+                        $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
+                    }
+                    
                     header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                     exit;
                 } else {
-                    // Manejar el caso en que no se pudo guardar el equipo (por ejemplo, mostrar un mensaje de error)
-                    echo "No funcionó";
+                    echo "Error al guardar los datos";
                 }
             }
         }
 
+        //Gestiona la eliminación de jugadores
         public function eliminarJugadores($id_jugador, $id_equipo){
+            $actualizarCapitanEquipo = new EquiposModel();
+            $actualizarCapitanEquipo->actualizarCapitanEquipoEliminado($id_equipo, $id_jugador);
             $jugadorEliminado = new JugadoresModel();
             $jugadorEliminado->eliminarJugadores($id_jugador);
             if ($jugadorEliminado !== false) {
-                // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                $actualizarCapitanEquipo = new EquiposModel();
-                $actualizarCapitanEquipo->actualizarCapitanEquipoEliminado($id_equipo);
+                
                 header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                 exit;
             } else {
-                // Manejar el caso en que no se pudo guardar el equipo (por ejemplo, mostrar un mensaje de error)
-                echo "No funcionó";
+                echo "Error en la eliminación";
             }
         }
 
+        //Gestiona la actualización de los jugadores en la base de datos 
         public function guardarModificacionJugador($id_jugador){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nombre_jugador = $_POST["nombre_jugador"];
@@ -85,14 +91,15 @@
                 $jugadorModificado = new JugadoresModel();
                 $jugadorModificado->guardarJugadorModificado($id_jugador, $nombre_jugador, $num_jugador, $fech_nac, $capitan);
                 if ($jugadorModificado !== false) {
-                    // El equipo se guardó exitosamente, puedes redirigir o mostrar un mensaje de éxito
-                    $actualizarCapitanEquipo = new EquiposModel();
-                    $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
+                    if ($capitan == 1) {
+                        $actualizarCapitanEquipo = new EquiposModel();
+                        $actualizarCapitanEquipo->actualizarCapitanEquipo($id_equipo, $nombre_jugador);
+                    }
                     header('Location: index.php?c=jugadores&a=listarJugadores&id_equipo='.$id_equipo);
                     exit;
                 } else {
-                    // Manejar el caso en que no se pudo guardar el equipo (por ejemplo, mostrar un mensaje de error)
-                    echo "No funcionó";
+                    
+                    echo "Error en la actualización";
                 }
             }
         }

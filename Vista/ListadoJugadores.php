@@ -26,6 +26,9 @@
     .primera_fila {
         background-color: #B5B2B2;
     }
+
+    h1{text-align:center;
+    }
 </style>
 <?php 
 
@@ -36,15 +39,15 @@ $id = $_GET['id_equipo'];
 </head>
 
 <body>
+    <h1>INFO EQUIPO</h1>
 
     <div class="contenedor">
 
     <a href="index.php?c=jugadores&a=nuevoJugador&id_equipo=<?php echo $id ?>"><button>Agregar nuevo jugador</button></a>
-
+    <a href="index.php"><button>Volver al inicio</button></a>
     
     <table>
         <tr >
-            <td class="primera_fila">Nombre del jugador</td>
             <td class="primera_fila">Nombre del jugador</td>
             <td class="primera_fila">Número de camiseta</td>
             <td class="primera_fila">Fecha de nacimiento</td>
@@ -59,7 +62,6 @@ $id = $_GET['id_equipo'];
         ?>
 
         <tr>
-            <td><?php echo $jugador["id_jugador"]?></td>
             <td><?php echo $jugador["nombre_jugador"]?></td>
             <td><?php echo $jugador["num_jugador"]?></td>
             <td><?php echo $jugador["fech_nac"]?></td>
@@ -77,7 +79,7 @@ $id = $_GET['id_equipo'];
         ?>
 
     </table>
-    <a href="index.php"><button>Volver al inicio</button></a>
+    
     </div>
 </body>
 </html>
