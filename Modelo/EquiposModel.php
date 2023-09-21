@@ -1,12 +1,10 @@
 <?php
 
-    class Equipos_modelo{
+    class EquiposModel{
 
         private $db;
 
         private $equipos;
-
-        private $jugadores;
 
         public function __construct(){
                 
@@ -15,8 +13,6 @@
             $this->db=Conexion::conexion();
 
             $this->equipos=array();
-
-            $this->jugadores=array();
 
 
         }
@@ -35,22 +31,8 @@
 
         }
 
-        public function getJugadores($id_equipo) {
-
-            $consulta=$this->db->query("SELECT * FROM jugadores where id_equipo = $id_equipo");
-
-            while($filas=$consulta->fetch(PDO::FETCH_ASSOC)) {
-                
-                $this->jugadores[]=$filas;
-
-            }
-
-            return $this->jugadores;
-        }
-
         public function guardarEquipo($nombre_equipo, $pais_equipo, $ciudad_equipo, $deporte, $fecha_fundacion){
 
-            echo "hola";
             try{
                 //$consulta = $this->db->query("INSERT INTO equipo (nombre_equipo, pais_equipo, ciudad_equipo, deporte, fecha_creacion) VALUES ('$nombre_equipo', '$pais_equipo', '$ciudad_equipo', '$deporte', '$fecha_fundacion')");
                 $consulta = "INSERT INTO equipos (nombre_equipo, pais_equipo, ciudad_equipo, deporte, fecha_creacion) VALUES (?, ?, ?, ?, ?)";
@@ -61,20 +43,27 @@
             }catch (PDOException $e) {
                 echo "error " . $e->getMessage();
             }
-            /* try {
-                // Insertar un nuevo equipo en la base de datos
-                $consulta = 'INSERT INTO equipo (nombre_equipo, pais_equipo, deporte, fecha_fundacion) VALUES (?, ?, ?, ?)';
-                $stmt = $this->db->prepare($consulta);
-                $stmt->execute([$datosEquipo['nombre'], $datosEquipo['pais'], $datosEquipo['deporte'], $datosEquipo['fecha']]);
-    
-                // Devolver el ID del equipo recién insertado
-                return $this->db->lastInsertId();
-            } catch (PDOException $e) {
-                // Manejar errores de la base de datos
-                // Puedes registrar los errores o lanzar una excepción personalizada
-                return false; // Devolver false en caso de error
-            }*/
 
+        }
+
+        public function actualizarCapitanEquipo($id_equipo, $nom_jugador){
+            try{
+                $sqlActualizacion = "UPDATE equipos SET nom_capitan = ? WHERE id_equipo = ?";
+                $actualizacion = $this->db->prepare($sqlActualizacion);
+                $actualizacion->execute([$nom_jugador, $id_equipo]);
+            }catch (PDOException $e) {
+                echo "error " . $e->getMessage();
+            }
+        }
+
+        public function actualizarCapitanEquipoEliminado($id_equipo){
+            try{
+                $sqlActualizacion = "UPDATE equipos SET nom_capitan = '' WHERE id_equipo = ?";
+                $actualizacion = $this->db->prepare($sqlActualizacion);
+                $actualizacion->execute([$id_equipo]);
+            }catch (PDOException $e) {
+                echo "error " . $e->getMessage();
+            }
         }
 
 
